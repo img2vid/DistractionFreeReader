@@ -16,9 +16,9 @@ except ImportError:
     IS_WINDOWS = False
 
 # --- Configuration ---
-BACKGROUND_COLOR = '#2e2e2e'  # Dark grey background
-TEXT_COLOR = 'white'
-BUTTON_COLOR = '#4a4a4a'
+BACKGROUND_COLOR = '#1e1e2e'  # Deep indigo background for higher contrast
+TEXT_COLOR = '#ffffff'
+BUTTON_COLOR = '#3b82f6'  # Vibrant blue buttons
 APP_NAME = "DistractionFreeReader"
 # Shortcuts disabled during a reading session to enforce strictness
 DISABLED_SHORTCUTS = [
@@ -157,7 +157,7 @@ class TimerSetupDialog(tk.Toplevel):
         style = ttk.Style()
         style.configure('Timer.TLabel', background=BACKGROUND_COLOR, foreground=TEXT_COLOR)
         style.configure('Timer.TButton', background=BUTTON_COLOR, foreground=TEXT_COLOR)
-        style.map('Timer.TButton', background=[('active', '#6a6a6a')])
+        style.map('Timer.TButton', background=[('active', '#2563eb')])
         
         frame = ttk.Frame(self, padding="20", style='TFrame')
         frame.pack(expand=True, fill=tk.BOTH)
@@ -234,7 +234,7 @@ class PDFTimerReaderApp:
         style = ttk.Style()
         style.configure('TFrame', background=BACKGROUND_COLOR)
         style.configure('TButton', padding=6, background=BUTTON_COLOR, foreground=TEXT_COLOR)
-        style.map('TButton', background=[('active', '#6a6a6a')])
+        style.map('TButton', background=[('active', '#2563eb')])
         style.configure('TLabel', background=BACKGROUND_COLOR, foreground=TEXT_COLOR, padding=5, font=('Helvetica', 12))
         style.configure('Timer.TLabel', background=BACKGROUND_COLOR, foreground=TEXT_COLOR, padding=5, font=('Helvetica', 16, 'bold'))
     
@@ -260,7 +260,7 @@ class PDFTimerReaderApp:
         self.timer_label = ttk.Label(top_frame, text="00:00:00", style='Timer.TLabel')
         self.timer_label.pack(side=tk.RIGHT, padx=20)
 
-        self.canvas = tk.Canvas(self.main_frame, bg="white", bd=0, highlightthickness=0)
+        self.canvas = tk.Canvas(self.main_frame, bg=BACKGROUND_COLOR, bd=0, highlightthickness=0)
         self.canvas.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         self.canvas.bind("<MouseWheel>", self.on_mouse_wheel)
