@@ -8,7 +8,7 @@ This will help you increase your reading time on your computer and help avoid di
 
 ## Strictness Features
 
-To maintain a focused reading session, the application now blocks a wide range of common shortcuts:
+To maintain a focused reading session, the application now blocks 30 common shortcuts:
 
 - Alt+F4
 - Alt+Tab
@@ -30,3 +30,13 @@ To maintain a focused reading session, the application now blocks a wide range o
 - F11
 - F12
 - Escape
+- Alt+Space
+- Alt+F5
+- Alt+F10
+- Ctrl+Tab
+- Ctrl+Shift+Tab
+- Ctrl+T
+- Ctrl+L
+- Ctrl+Shift+N
+- Ctrl+Shift+T
+- Ctrl+Shift+W

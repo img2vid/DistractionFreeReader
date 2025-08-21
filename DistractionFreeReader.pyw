@@ -42,6 +42,16 @@ DISABLED_SHORTCUTS = [
     "<F11>",
     "<F12>",
     "<Escape>",
+    "<Alt-Space>",
+    "<Alt-F5>",
+    "<Alt-F10>",
+    "<Control-Tab>",
+    "<Control-Shift-Tab>",
+    "<Control-t>",
+    "<Control-l>",
+    "<Control-Shift-N>",
+    "<Control-Shift-T>",
+    "<Control-Shift-W>",
 ]
 # --- End Configuration ---
 
