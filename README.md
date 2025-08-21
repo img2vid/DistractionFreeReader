@@ -42,3 +42,5 @@ To maintain a focused reading session, the application now blocks 30 common shor
 - Ctrl+Shift+N
 - Ctrl+Shift+T
 - Ctrl+Shift+W
+
+Additionally, the reader prevents power-button holds from forcing a shutdown while a timed session is active on Windows.

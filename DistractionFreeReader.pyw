@@ -15,6 +15,33 @@ try:
 except ImportError:
     IS_WINDOWS = False
 
+if IS_WINDOWS:
+    import ctypes
+    ES_CONTINUOUS = 0x80000000
+    ES_SYSTEM_REQUIRED = 0x00000001
+
+    def block_power_button():
+        """Prevents Windows from treating power button holds as shutdown requests."""
+        try:
+            ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED)
+            print("INFO: Power button hold disabled.")
+        except Exception as e:
+            print(f"Error disabling power button hold: {e}")
+
+    def restore_power_button():
+        """Restores normal power button behavior."""
+        try:
+            ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS)
+            print("INFO: Power button hold restored.")
+        except Exception as e:
+            print(f"Error restoring power button hold: {e}")
+else:
+    def block_power_button():
+        pass
+
+    def restore_power_button():
+        pass
+
 # --- Configuration ---
 BACKGROUND_COLOR = '#1e1e2e'  # Deep indigo background for higher contrast
 TEXT_COLOR = '#ffffff'
@@ -460,6 +487,7 @@ class PDFTimerReaderApp:
         for combo in DISABLED_SHORTCUTS:
             self.root.bind_all(combo, lambda e: "break")
         self.root.bind_all("<Control-Key>", lambda e: "break")
+        block_power_button()
         print("INFO: Distraction-free mode ENABLED. Window controls and Ctrl key are disabled.")
 
     def enable_controls(self):
@@ -470,6 +498,7 @@ class PDFTimerReaderApp:
         for combo in DISABLED_SHORTCUTS:
             self.root.unbind_all(combo)
         self.root.unbind_all("<Control-Key>")
+        restore_power_button()
         print("INFO: Distraction-free mode DISABLED. Window controls are enabled.")
 
 
