@@ -48,11 +48,12 @@ Additionally, the reader prevents power-button holds from forcing a shutdown whi
 ## Dependencies
 
 This reader uses [PyMuPDF](https://pymupdf.readthedocs.io/) (imported as `fitz`) to render PDF pages.
-If you encounter an error such as `ImportError: DLL load failed while importing _extra`, install the
-library for your Python environment:
+If you encounter a message like `DLL load failed while importing _extra`, the native
+components of PyMuPDF are missing. Reinstall the package and ensure the Microsoft Visual
+C++ redistributable is available:
 
 ```
-pip install pymupdf
+pip install --upgrade pymupdf
 ```
 
-Ensure the package matches your Python version and architecture.
+Both your Python interpreter and PyMuPDF must be either 32-bit or 64-bit.

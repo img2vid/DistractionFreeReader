@@ -346,10 +346,13 @@ class PDFTimerReaderApp:
 
     def start_session(self, filepath, duration_seconds, page_num=0, is_resume=False):
         if fitz is None:
-            messagebox.showerror(
-                "Missing Dependency",
-                f"PyMuPDF is required to open PDFs.\nError: {FITZ_IMPORT_ERROR}"
+            message = (
+                "PyMuPDF could not be imported.\n"
+                "Reinstall it with 'pip install --upgrade pymupdf' and ensure the "
+                "Microsoft Visual C++ redistributable is installed.\n"
+                f"Original error: {FITZ_IMPORT_ERROR}"
             )
+            messagebox.showerror("Missing Dependency", message)
             self.reset_viewer()
             clear_state()
             return
