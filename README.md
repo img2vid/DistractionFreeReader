@@ -44,3 +44,15 @@ To maintain a focused reading session, the application now blocks 30 common shor
 - Ctrl+Shift+W
 
 Additionally, the reader prevents power-button holds from forcing a shutdown while a timed session is active on Windows.
+
+## Dependencies
+
+This reader uses [PyMuPDF](https://pymupdf.readthedocs.io/) (imported as `fitz`) to render PDF pages.
+If you encounter an error such as `ImportError: DLL load failed while importing _extra`, install the
+library for your Python environment:
+
+```
+pip install pymupdf
+```
+
+Ensure the package matches your Python version and architecture.

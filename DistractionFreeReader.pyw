@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-import fitz  # PyMuPDF
+try:
+    import fitz  # PyMuPDF
+    FITZ_IMPORT_ERROR = None
+except Exception as e:  # ImportError or DLL load issues
+    fitz = None
+    FITZ_IMPORT_ERROR = e
 from PIL import Image, ImageTk
 import time
 import json
@@ -340,6 +345,15 @@ class PDFTimerReaderApp:
             messagebox.showinfo("Cancelled", "PDF loading cancelled because no timer was set.")
 
     def start_session(self, filepath, duration_seconds, page_num=0, is_resume=False):
+        if fitz is None:
+            messagebox.showerror(
+                "Missing Dependency",
+                f"PyMuPDF is required to open PDFs.\nError: {FITZ_IMPORT_ERROR}"
+            )
+            self.reset_viewer()
+            clear_state()
+            return
+
         self.reset_viewer()
         try:
             self.page_label.config(text=f"Loading: {Path(filepath).name}")
