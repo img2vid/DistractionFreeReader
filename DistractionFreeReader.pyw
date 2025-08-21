@@ -20,6 +20,29 @@ BACKGROUND_COLOR = '#2e2e2e'  # Dark grey background
 TEXT_COLOR = 'white'
 BUTTON_COLOR = '#4a4a4a'
 APP_NAME = "DistractionFreeReader"
+# Shortcuts disabled during a reading session to enforce strictness
+DISABLED_SHORTCUTS = [
+    "<Alt-F4>",
+    "<Alt-Tab>",
+    "<Alt-Escape>",
+    "<Alt-Return>",
+    "<Control-Escape>",
+    "<Control-Alt-Delete>",
+    "<Control-n>",
+    "<Control-o>",
+    "<Control-p>",
+    "<Control-s>",
+    "<Control-q>",
+    "<Control-w>",
+    "<Control-Shift-Escape>",
+    "<Control-Alt-Escape>",
+    "<Win_L>",
+    "<Win_R>",
+    "<F1>",
+    "<F11>",
+    "<F12>",
+    "<Escape>",
+]
 # --- End Configuration ---
 
 # --- Persistence and Startup Management ---
@@ -424,7 +447,8 @@ class PDFTimerReaderApp:
         self.select_button.config(state=tk.DISABLED)
         # The on_attempt_close method will handle close attempts
         self.root.protocol("WM_DELETE_WINDOW", self.on_attempt_close)
-        self.root.bind("<Alt-F4>", lambda e: "break")
+        for combo in DISABLED_SHORTCUTS:
+            self.root.bind_all(combo, lambda e: "break")
         self.root.bind_all("<Control-Key>", lambda e: "break")
         print("INFO: Distraction-free mode ENABLED. Window controls and Ctrl key are disabled.")
 
@@ -433,7 +457,8 @@ class PDFTimerReaderApp:
         self.root.attributes('-topmost', False)
         self.select_button.config(state=tk.NORMAL)
         self.root.protocol("WM_DELETE_WINDOW", self.on_attempt_close)
-        self.root.unbind("<Alt-F4>")
+        for combo in DISABLED_SHORTCUTS:
+            self.root.unbind_all(combo)
         self.root.unbind_all("<Control-Key>")
         print("INFO: Distraction-free mode DISABLED. Window controls are enabled.")
 
