@@ -234,6 +234,12 @@ class PDFTimerReaderApp:
         self.canvas.bind("<Button-4>", self.on_mouse_wheel)
         self.canvas.bind("<Button-5>", self.on_mouse_wheel)
 
+        # Allow navigation with arrow keys
+        self.root.bind("<Left>", lambda e: self.prev_page())
+        self.root.bind("<Right>", lambda e: self.next_page())
+        self.root.bind("<Up>", lambda e: self.canvas.yview_scroll(-1, "units"))
+        self.root.bind("<Down>", lambda e: self.canvas.yview_scroll(1, "units"))
+
     def check_for_saved_session(self):
         """Checks for and automatically restores a previously saved session."""
         saved_state = load_state()
@@ -418,6 +424,11 @@ class PDFTimerReaderApp:
         else:
             self.root.destroy()
 
+    def _block_keys(self, event):
+        """Prevents all key presses except arrow keys."""
+        if event.keysym not in {"Left", "Right", "Up", "Down"}:
+            return "break"
+
     def disable_controls(self):
         """Disables controls and shortcuts during a timed session."""
         self.root.attributes('-topmost', True)
@@ -425,8 +436,8 @@ class PDFTimerReaderApp:
         # The on_attempt_close method will handle close attempts
         self.root.protocol("WM_DELETE_WINDOW", self.on_attempt_close)
         self.root.bind("<Alt-F4>", lambda e: "break")
-        self.root.bind_all("<Control-Key>", lambda e: "break")
-        print("INFO: Distraction-free mode ENABLED. Window controls and Ctrl key are disabled.")
+        self.root.bind_all("<Key>", self._block_keys)
+        print("INFO: Distraction-free mode ENABLED. Keyboard input is restricted to arrow keys and mouse only.")
 
     def enable_controls(self):
         """Enables controls when no session is active."""
@@ -434,7 +445,7 @@ class PDFTimerReaderApp:
         self.select_button.config(state=tk.NORMAL)
         self.root.protocol("WM_DELETE_WINDOW", self.on_attempt_close)
         self.root.unbind("<Alt-F4>")
-        self.root.unbind_all("<Control-Key>")
+        self.root.unbind_all("<Key>")
         print("INFO: Distraction-free mode DISABLED. Window controls are enabled.")
 
 
